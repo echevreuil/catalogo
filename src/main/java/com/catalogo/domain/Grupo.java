@@ -29,8 +29,8 @@ public class Grupo {
 	@ManyToMany
 	@JoinTable(
 		      name="grupo_usuario",
-		      joinColumns={@JoinColumn(name="id_usuario", referencedColumnName="id_usuario")},
-		      inverseJoinColumns={@JoinColumn(name="id_grupo", referencedColumnName="id_grupo")})
+		      joinColumns={@JoinColumn(name="id_grupo", referencedColumnName="id_grupo")},
+		      inverseJoinColumns={@JoinColumn(name="id_usuario", referencedColumnName="id_usuario")})
 	private List<Usuario> participantes;
 
 	public Long getId() {
