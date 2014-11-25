@@ -14,7 +14,7 @@ import javax.persistence.Table;
 public class Album {
 
   @Id
-  @GeneratedValue(strategy = GenerationType.SEQUENCE)
+  @GeneratedValue(strategy = GenerationType.AUTO)
   @Column(name = "id_album")
   private Long id;
 
@@ -24,8 +24,20 @@ public class Album {
 
   @Column(name = "nome")
   private String nome;
+  
+  @ManyToOne
+  @JoinColumn(name = "id_genero")
+  private Genero genero;
 
-  public Long getId() {
+  public Genero getGenero() {
+	return genero;
+}
+
+public void setGenero(Genero genero) {
+	this.genero = genero;
+}
+
+public Long getId() {
     return id;
   }
 

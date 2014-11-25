@@ -9,6 +9,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import org.hibernate.validator.constraints.Email;
@@ -18,7 +19,7 @@ import org.hibernate.validator.constraints.Email;
 public class Usuario {
 
   @Id
-  @GeneratedValue(strategy = GenerationType.SEQUENCE)
+  @GeneratedValue(strategy = GenerationType.AUTO)
   @Column(name = "id_usuario")
   private Long id;
 
@@ -37,6 +38,10 @@ public class Usuario {
   
   @ManyToMany(mappedBy = "participantes")
   private List<Grupo> grupos;
+  
+  @OneToMany(mappedBy = "usuario")
+  private List<Comentario> comentarios;
+  
 
   public Long getId() {
     return id;
