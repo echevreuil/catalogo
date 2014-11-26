@@ -19,7 +19,7 @@ import javax.persistence.Table;
 public class Grupo {
 	
 	@Id
-	@GeneratedValue(strategy = GenerationType.SEQUENCE)
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name = "id_grupo")
 	private Long id;
 	
