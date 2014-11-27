@@ -11,6 +11,7 @@ import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
 
 import org.hibernate.validator.constraints.Email;
 
@@ -24,15 +25,18 @@ public class Usuario {
   private Long id;
 
   @Email
+  @NotNull
   @Column(name = "login")
   private String login;
 
+  @NotNull
   @Column(name = "senha")
   private String senha;
 
   @Column(name = "dt_nascimento")
   private Date dataNascimento;
 
+  @NotNull
   @Column(name = "nome")
   private String nome;
   
