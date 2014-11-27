@@ -12,11 +12,13 @@ import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
+import javax.xml.bind.annotation.XmlRootElement;
 
 import org.hibernate.validator.constraints.Email;
 
 @Table(name = "usuario")
 @Entity
+@XmlRootElement
 public class Usuario {
 
   @Id
