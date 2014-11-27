@@ -5,6 +5,7 @@ import javax.persistence.Persistence;
 import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
 
+@WebListener
 public class HibernateListener implements ServletContextListener {
 
 	public void contextInitialized(ServletContextEvent event) {
