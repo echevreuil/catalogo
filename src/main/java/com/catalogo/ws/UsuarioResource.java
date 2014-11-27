@@ -1,6 +1,5 @@
 package com.catalogo.ws;
 
-import javax.inject.Inject;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
@@ -14,7 +13,7 @@ import com.catalogo.service.UsuarioService;
 @Path("usuarios")
 public class UsuarioResource {
 
-  @Inject
+  // @Inject
   private UsuarioService service;
 
   @POST
