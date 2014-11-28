@@ -1,10 +1,12 @@
 package com.catalogo.service;
 
+import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
 
 import com.catalogo.domain.Usuario;
 
+@ApplicationScoped
 public class UsuarioServiceImpl implements UsuarioService {
 
 	@Inject

@@ -1,5 +1,6 @@
 package com.catalogo.hibernate;
 
+import javax.enterprise.context.RequestScoped;
 import javax.enterprise.inject.Produces;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -34,7 +35,8 @@ public class CatalogoEntityManagerFactory implements ServletContextListener {
   }
 
   @Produces
-  public void createEntityManager() {
+  @RequestScoped
+  public EntityManager createEntityManager() {
 
     if (emf == null) {
 
@@ -42,7 +44,7 @@ public class CatalogoEntityManagerFactory implements ServletContextListener {
 
     }
 
-    this.em = emf.createEntityManager();
+    return emf.createEntityManager();
 
   }
 
