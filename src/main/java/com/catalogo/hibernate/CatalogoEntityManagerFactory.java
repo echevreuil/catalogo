@@ -1,51 +1,56 @@
 package com.catalogo.hibernate;
 
-import javax.enterprise.context.RequestScoped;
-import javax.enterprise.inject.Produces;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
+import javax.persistence.PersistenceContext;
 import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
 import javax.servlet.annotation.WebListener;
 
+import org.apache.log4j.Logger;
+
 @WebListener
 public class CatalogoEntityManagerFactory implements ServletContextListener {
 
-  private EntityManagerFactory emf;
+	private EntityManagerFactory emf;
 
-  private EntityManager em;
+	@PersistenceContext(unitName = "catalogo")
+	private EntityManager em;
 
-  public void contextInitialized(ServletContextEvent event) {
+	private static final Logger logger = Logger
+			.getLogger(CatalogoEntityManagerFactory.class);
 
-    this.emf = Persistence.createEntityManagerFactory("catalogo");
+	public void contextInitialized(ServletContextEvent event) {
 
-    event.getServletContext().setAttribute("emf", emf);
+		this.emf = Persistence.createEntityManagerFactory("catalogo");
 
-    this.createEntityManager();
+		event.getServletContext().setAttribute("emf", emf);
 
-  }
+		this.createEntityManager();
 
-  public void contextDestroyed(ServletContextEvent event) {
+	}
 
-    EntityManagerFactory emf = (EntityManagerFactory) event.getServletContext().getAttribute("emf");
+	public void contextDestroyed(ServletContextEvent event) {
 
-    emf.close();
+		EntityManagerFactory emf = (EntityManagerFactory) event
+				.getServletContext().getAttribute("emf");
 
-  }
+		emf.close();
 
-  @Produces
-  @RequestScoped
-  public EntityManager createEntityManager() {
+	}
 
-    if (emf == null) {
+	public EntityManager createEntityManager() {
 
-      throw new IllegalStateException("Context is not initialized yet.");
+		if (emf == null) {
 
-    }
+			throw new IllegalStateException("Context is not initialized yet.");
 
-    return emf.createEntityManager();
+		}
 
-  }
+		return emf.createEntityManager();
+
+	}
+	
 
 }

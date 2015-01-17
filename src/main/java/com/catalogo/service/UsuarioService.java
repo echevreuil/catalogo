@@ -1,5 +1,6 @@
 package com.catalogo.service;
 
+
 import com.catalogo.domain.Usuario;
 
 public interface UsuarioService {

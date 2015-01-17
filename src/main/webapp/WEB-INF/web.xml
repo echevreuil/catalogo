@@ -7,29 +7,29 @@
 		<welcome-file>index.jsp</welcome-file>
 	</welcome-file-list>
 	<listener>
-		<listener-class>org.jboss.weld.environment.servlet.Listener</listener-class>
+		<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
 	</listener>
-	<resource-env-ref>
-		<resource-env-ref-name>BeanManager</resource-env-ref-name>
-		<resource-env-ref-type>javax.enterprise.inject.spi.BeanManager</resource-env-ref-type>
-	</resource-env-ref>
-	<listener>
-		<listener-class>com.catalogo.hibernate.CatalogoEntityManagerFactory</listener-class>
-	</listener>
-
+	
 	<servlet>
-		<servlet-name>catalogo</servlet-name>
-		<servlet-class>
-			org.glassfish.jersey.servlet.ServletContainer
-		</servlet-class>
+		<servlet-name>CatalogoSpringServlet</servlet-name>
+		<servlet-class>org.glassfish.jersey.servlet.ServletContainer</servlet-class>
+		<init-param>
+           <param-name>jersey.config.server.provider.packages</param-name>
+           <param-value>com.catalogo.ws</param-value>
+       </init-param>
+       
+       <load-on-startup>1</load-on-startup>
 	</servlet>
- 
+	
+	<context-param>
+		<param-name>contextConfigLocation</param-name>
+		<param-value>/WEB-INF/applicationContext.xml</param-value>
+	</context-param>
+
 	<servlet-mapping>
-		<servlet-name>catalogo</servlet-name>
+		<servlet-name>CatalogoSpringServlet</servlet-name>
 		<url-pattern>/rest/*</url-pattern>
 	</servlet-mapping>
-	
-	
-    
-	
+
+
 </web-app>

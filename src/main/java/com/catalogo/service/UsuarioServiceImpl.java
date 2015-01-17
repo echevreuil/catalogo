@@ -1,16 +1,21 @@
 package com.catalogo.service;
 
-import javax.enterprise.context.ApplicationScoped;
-import javax.inject.Inject;
 import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+
+import org.springframework.stereotype.Service;
 
 import com.catalogo.domain.Usuario;
 
-@ApplicationScoped
+@Service
 public class UsuarioServiceImpl implements UsuarioService {
 
-	@Inject
+	@PersistenceContext(name = "catalogo")
 	EntityManager em;
+	
+	public UsuarioServiceImpl(){
+		
+	}
 
 	@Override
 	public Usuario criarUsuario(Usuario usuario) {
