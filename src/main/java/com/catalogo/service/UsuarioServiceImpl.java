@@ -10,7 +10,7 @@ import com.catalogo.domain.Usuario;
 @Service
 public class UsuarioServiceImpl implements UsuarioService {
 
-	@PersistenceContext(name = "catalogo")
+	@PersistenceContext(unitName = "catalogo")
 	EntityManager em;
 	
 	public UsuarioServiceImpl(){

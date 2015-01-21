@@ -8,13 +8,13 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.transaction.annotation.Transactional;
+import org.springframework.stereotype.Component;
 
 import com.catalogo.domain.Usuario;
 import com.catalogo.service.UsuarioService;
 
 @Path("usuarios")
-@Transactional
+@Component
 public class UsuarioResource {
 
   @Autowired
