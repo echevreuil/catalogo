@@ -13,7 +13,7 @@ import org.springframework.stereotype.Component;
 import com.catalogo.domain.Usuario;
 import com.catalogo.service.UsuarioService;
 
-@Path("usuarios")
+@Path("/usuarios")
 @Component
 public class UsuarioResource {
 

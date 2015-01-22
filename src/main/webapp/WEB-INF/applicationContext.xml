@@ -14,11 +14,13 @@
 
 	<context:annotation-config />
     <context:component-scan base-package="com.catalogo" />
+    <context:component-scan base-package="com.catalogo.ws" />
  
     <!-- ************ JPA configuration *********** -->
 
-    <bean id="entityManagerFactory" class="org.springframework.orm.hibernate4.LocalSessionFactoryBean">
-    	<property name="persistenceXmlLocation" value="*classpath:META-INF/persistence.xml" />
+    <bean id="entityManagerFactory" class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
+    	<property name="persistenceXmlLocation" value="classpath:/META-INF/persistence.xml" />
+    	<property name="persistenceUnitName" value="catalogo"/>
         <property name="packagesToScan" value="com.catalogo.domain" />
         <property name="jpaVendorAdapter">
             <bean class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter">
@@ -26,7 +28,6 @@
                 <property name="databasePlatform" value="org.hibernate.dialect.MySQLDialect" />
             </bean>
         </property>
-        <property name="configurationClass" value="org.hibernate.cfg.AnnotationConfigurationWithWildcard"/>
     </bean>      
   <!-- 
     <bean id="usuarioService" class="com.catalogo.service.UsuarioServiceImpl"/>    
