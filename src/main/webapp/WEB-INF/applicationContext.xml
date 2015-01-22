@@ -1,8 +1,7 @@
 <beans xmlns="http://www.springframework.org/schema/beans"
-    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xmlns:context="http://www.springframework.org/schema/context"
-    xmlns:tx="http://www.springframework.org/schema/tx"    
-    xsi:schemaLocation="
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xsi:schemaLocation="
         http://www.springframework.org/schema/beans    
         http://www.springframework.org/schema/beans/spring-beans.xsd
  
@@ -13,28 +12,47 @@
         http://www.springframework.org/schema/context/spring-context.xsd">
 
 	<context:annotation-config />
-    <context:component-scan base-package="com.catalogo.*" />
- 
-    <!-- ************ JPA configuration *********** -->
+	<context:component-scan base-package="com.catalogo" />
 
-    <bean id="entityManagerFactory" class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
-    	<property name="persistenceXmlLocation" value="classpath:META-INF/persistence.xml" />
-        <property name="packagesToScan" value="com.catalogo.domain.*" />
-        <property name="jpaVendorAdapter">
-            <bean class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter">
-                <property name="showSql" value="true" />
-                <property name="databasePlatform" value="org.hibernate.dialect.MySQLDialect" />
-            </bean>
-        </property>
-    </bean>      
-  <!-- 
-    <bean id="usuarioService" class="com.catalogo.service.UsuarioServiceImpl"/>    
-    <bean id="usuarioResource" class="com.catalogo.ws.UsuarioResource" >
-        <property name="usuarioService" ref="usuarioService"/>
-    </bean>
+	<!-- ************ JPA configuration *********** -->
 
-    <bean id="restDemoDS" class="org.springframework.jndi.JndiObjectFactoryBean" scope="singleton">
-        <property name="jndiName" value="java:comp/env/jdbc/restDemoDB" />
-        <property name="resourceRef" value="true" />        
-    </bean> -->
+	<bean id="entityManagerFactory"
+		class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
+		<property name="persistenceXmlLocation" value="classpath:META-INF/persistence.xml" />
+		<property name="persistenceUnitName" value="catalogo" />
+		<property name="persistenceUnitManager" ref="pum" />
+		<property name="packagesToScan" value="com.catalogo.domain" />
+		<property name="jpaVendorAdapter">
+			<bean class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter">
+				<property name="showSql" value="true" />
+				<property name="databasePlatform" value="org.hibernate.dialect.MySQLDialect" />
+			</bean>
+		</property>
+	</bean>
+
+	<bean id="transactionManager" class="org.springframework.orm.jpa.JpaTransactionManager">
+		<property name="entityManagerFactory" ref="entityManagerFactory" />
+	</bean>
+
+	<tx:annotation-driven transaction-manager="transactionManager" />
+
+	<bean
+		class="org.springframework.orm.jpa.support.PersistenceAnnotationBeanPostProcessor" />
+
+	<bean id="pum"
+		class="org.springframework.orm.jpa.persistenceunit.DefaultPersistenceUnitManager">
+		<property name="persistenceXmlLocations">
+			<list>
+				<value>classpath:META-INF/persistence.xml</value>
+			</list>
+		</property>
+
+	</bean>
+
+	<!-- <bean id="usuarioService" class="com.catalogo.service.UsuarioServiceImpl"/> 
+		<bean id="usuarioResource" class="com.catalogo.ws.UsuarioResource" > <property 
+		name="usuarioService" ref="usuarioService"/> </bean> <bean id="restDemoDS" 
+		class="org.springframework.jndi.JndiObjectFactoryBean" scope="singleton"> 
+		<property name="jndiName" value="java:comp/env/jdbc/restDemoDB" /> <property 
+		name="resourceRef" value="true" /> </bean> -->
 </beans>

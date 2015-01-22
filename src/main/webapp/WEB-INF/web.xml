@@ -9,18 +9,18 @@
 	<listener>
 		<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
 	</listener>
-	
+
 	<servlet>
 		<servlet-name>CatalogoSpringServlet</servlet-name>
-		<servlet-class>org.glassfish.jersey.servlet.ServletContainer</servlet-class>
+		<servlet-class>com.sun.jersey.spi.spring.container.servlet.SpringServlet</servlet-class>
 		<init-param>
-           <param-name>jersey.config.server.provider.packages</param-name>
-           <param-value>com.catalogo.ws</param-value>
-       </init-param>
-       
-       <load-on-startup>1</load-on-startup>
+			<param-name>com.sun.jersey.config.property.packages</param-name>
+			<param-value>com.catalogo.ws;com.catalogo.service</param-value>
+		</init-param>
+
+		<load-on-startup>1</load-on-startup>
 	</servlet>
-	
+
 	<context-param>
 		<param-name>contextConfigLocation</param-name>
 		<param-value>/WEB-INF/applicationContext.xml</param-value>

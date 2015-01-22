@@ -1,17 +1,19 @@
 package com.catalogo.service;
 
+import javax.inject.Named;
 import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
-
-import org.springframework.stereotype.Service;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.PersistenceUnit;
 
 import com.catalogo.domain.Usuario;
 
-@Service
+@Named("usuarioService")
 public class UsuarioServiceImpl implements UsuarioService {
 
-	@PersistenceContext(name = "catalogo")
-	EntityManager em;
+  @PersistenceUnit(unitName = "catalogo")
+  private EntityManagerFactory factory;
+  // @PersistenceContext(unitName = "catalogo")
+  private EntityManager em;
 	
 	public UsuarioServiceImpl(){
 		
@@ -20,8 +22,15 @@ public class UsuarioServiceImpl implements UsuarioService {
 	@Override
 	public Usuario criarUsuario(Usuario usuario) {
 
-		em.persist(usuario);
-		em.flush();
+    synchronized (this) {
+      if (this.em == null) {
+        this.em = factory.createEntityManager();
+      }
+    }
+    this.em.getTransaction().begin();
+    this.em.persist(usuario);
+    this.em.flush();
+    this.em.getTransaction().commit();
 
 		return usuario;
 	}
